@@ -1,5 +1,8 @@
 
 /*created by prashant shukla */
+right_wrist_x="";
+right_wrist_y="";
+rightWrist_score="";
 
 var paddle2 =10,paddle1=10;
 
@@ -35,10 +38,22 @@ function modelLoaded(){
 }
 
 function gotPoses(results){
-  
+	if( results.length>0){
+		console.log(results);
+		right_wrist_x=results[0].pose.rightWrist.x;
+		right_wrist_y=results[0].pose.rightWrist.y;
+    rightWrist_score=results[0].pose.keypoints[10].score;
+    console.log("right_x="+right_wrist_x+"right_y="+right_wrist_y)
+	}
 }
 
 function draw(){
+
+  if(rightWrist_score>0.2){
+    fill("red");
+    stroke("red");
+    circle(right_wrist_x,right_wrist_y,20);
+  }
 
  background(0); 
 
