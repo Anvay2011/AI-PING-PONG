@@ -1,5 +1,8 @@
 
-
+function preload(){
+  ping_pong_missed=loadSound("missed.wav")
+	ping_pong_ball_touch=loadSound("ball_touch_paddel.wav")
+}
 
 var paddle2 =10,paddle1=10;
 
@@ -143,7 +146,7 @@ function midline(){
 function drawScore(){
     textAlign(CENTER);
     textSize(20);
-    fill("white");
+    fill("black");
     stroke(250,0,0)
     text("Player:",100,50)
     text(playerscore,140,50);
@@ -164,9 +167,10 @@ function move(){
        ball.dx=-ball.dx-0.5;       
    }
   if (ball.x-2.5*ball.r/2< 0){
+    ping_pong_missed.play()
   if (ball.y >= paddle1Y&& ball.y <= paddle1Y + paddle1Height) {
     ball.dx = -ball.dx+0.5; 
-    
+    ping_pong_ball_touch.play()
   }
   else{
     pcscore++;
@@ -183,7 +187,7 @@ if(pcscore ==4){
     stroke("white");
     textSize(25);
     text("Game Over!",width/2,height/2);
-    text("Reload the page!",width/2,height/2+30)
+    text("Press Restart Button to Start Again!",width/2,height/2+30)
     noLoop();
     pcscore = 0;
  }
@@ -196,7 +200,7 @@ if(pcscore ==4){
 //width height of canvas speed of ball 
 function models(){
     textSize(18);
-    fill(255);
+    fill("black");
     noStroke();
     text("Width:"+width,135,15);
     text("Speed:"+abs(ball.dx),50,15);
@@ -216,3 +220,8 @@ function paddleInCanvas(){
   
 }
 
+function restart(){
+  pcscore=0;
+  playerscore=0;
+  loop()
+}
